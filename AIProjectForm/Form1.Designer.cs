@@ -58,6 +58,7 @@
             this.lblTopStore = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.lblTurn = new System.Windows.Forms.Label();
+            this.lblGameOver = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.SuspendLayout();
@@ -71,6 +72,7 @@
             this.btnL0.TabStop = false;
             this.btnL0.Text = "Select";
             this.btnL0.UseVisualStyleBackColor = true;
+            this.btnL0.Click += new System.EventHandler(this.btnL0_Click);
             // 
             // btnL1
             // 
@@ -81,6 +83,7 @@
             this.btnL1.TabStop = false;
             this.btnL1.Text = "Select";
             this.btnL1.UseVisualStyleBackColor = true;
+            this.btnL1.Click += new System.EventHandler(this.btnL1_Click);
             // 
             // btnL2
             // 
@@ -91,6 +94,7 @@
             this.btnL2.TabStop = false;
             this.btnL2.Text = "Select";
             this.btnL2.UseVisualStyleBackColor = true;
+            this.btnL2.Click += new System.EventHandler(this.btnL2_Click);
             // 
             // btnL3
             // 
@@ -101,6 +105,7 @@
             this.btnL3.TabStop = false;
             this.btnL3.Text = "Select";
             this.btnL3.UseVisualStyleBackColor = true;
+            this.btnL3.Click += new System.EventHandler(this.btnL3_Click);
             // 
             // btnL4
             // 
@@ -111,6 +116,7 @@
             this.btnL4.TabStop = false;
             this.btnL4.Text = "Select";
             this.btnL4.UseVisualStyleBackColor = true;
+            this.btnL4.Click += new System.EventHandler(this.btnL4_Click);
             // 
             // btnL5
             // 
@@ -121,6 +127,7 @@
             this.btnL5.TabStop = false;
             this.btnL5.Text = "Select";
             this.btnL5.UseVisualStyleBackColor = true;
+            this.btnL5.Click += new System.EventHandler(this.btnL5_Click);
             // 
             // btnR0
             // 
@@ -131,6 +138,7 @@
             this.btnR0.TabStop = false;
             this.btnR0.Text = "Select";
             this.btnR0.UseVisualStyleBackColor = true;
+            this.btnR0.Click += new System.EventHandler(this.btnR0_Click);
             // 
             // btnR1
             // 
@@ -141,6 +149,7 @@
             this.btnR1.TabStop = false;
             this.btnR1.Text = "Select";
             this.btnR1.UseVisualStyleBackColor = true;
+            this.btnR1.Click += new System.EventHandler(this.btnR1_Click);
             // 
             // btnR2
             // 
@@ -151,6 +160,7 @@
             this.btnR2.TabStop = false;
             this.btnR2.Text = "Select";
             this.btnR2.UseVisualStyleBackColor = true;
+            this.btnR2.Click += new System.EventHandler(this.btnR2_Click);
             // 
             // btnR3
             // 
@@ -161,6 +171,7 @@
             this.btnR3.TabStop = false;
             this.btnR3.Text = "Select";
             this.btnR3.UseVisualStyleBackColor = true;
+            this.btnR3.Click += new System.EventHandler(this.btnR3_Click);
             // 
             // btnR4
             // 
@@ -171,6 +182,7 @@
             this.btnR4.TabStop = false;
             this.btnR4.Text = "Select";
             this.btnR4.UseVisualStyleBackColor = true;
+            this.btnR4.Click += new System.EventHandler(this.btnR4_Click);
             // 
             // btnR5
             // 
@@ -181,6 +193,7 @@
             this.btnR5.TabStop = false;
             this.btnR5.Text = "Select";
             this.btnR5.UseVisualStyleBackColor = true;
+            this.btnR5.Click += new System.EventHandler(this.btnR5_Click);
             // 
             // lblL0
             // 
@@ -381,11 +394,24 @@
             this.lblTurn.TabIndex = 27;
             this.lblTurn.Text = "Left";
             // 
+            // lblGameOver
+            // 
+            this.lblGameOver.AutoSize = true;
+            this.lblGameOver.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblGameOver.Location = new System.Drawing.Point(107, 8);
+            this.lblGameOver.Name = "lblGameOver";
+            this.lblGameOver.Size = new System.Drawing.Size(70, 13);
+            this.lblGameOver.TabIndex = 28;
+            this.lblGameOver.Text = "Game Over";
+            this.lblGameOver.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.lblGameOver.Visible = false;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(284, 287);
+            this.Controls.Add(this.lblGameOver);
             this.Controls.Add(this.lblTurn);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.panel2);
@@ -404,6 +430,10 @@
 
         #endregion
 
+        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Panel panel2;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label lblTurn;
         private System.Windows.Forms.Button btnL0;
         private System.Windows.Forms.Button btnL1;
         private System.Windows.Forms.Button btnL2;
@@ -428,12 +458,9 @@
         private System.Windows.Forms.Label lblR3;
         private System.Windows.Forms.Label lblR4;
         private System.Windows.Forms.Label lblR5;
-        private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.Label lblBottomStore;
         private System.Windows.Forms.Label lblTopStore;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Label lblTurn;
+        private System.Windows.Forms.Label lblGameOver;
     }
 }
 
