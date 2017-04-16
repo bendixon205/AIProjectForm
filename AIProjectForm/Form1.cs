@@ -420,7 +420,7 @@ namespace AIProjectForm
             else
             {
                 int[] return_val = get_ai_move(depth - 1, max_turn);
-                Move(return_val[1]);
+                leftTurn = false;
                 return return_val;
             }
         }
