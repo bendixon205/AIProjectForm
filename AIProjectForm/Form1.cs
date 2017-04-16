@@ -39,12 +39,38 @@ namespace AIProjectForm
             RightSide[4] = lblR4;
             RightSide[5] = lblR5;
             RightSide[6] = lblTopStore;
-            
+
             UpdateBoard(ref game);
         }
-
         public void UpdateBoard(ref Mancala game)
         {
+            if (!game.leftTurn && game.aiActive)
+            {
+                int ai_index = game.get_ai_move(Mancala.max_depth, true)[1];
+
+                switch (ai_index)
+                {
+                    case 7:
+                        btnR0.PerformClick();
+                        break;
+                    case 8:
+                        btnR1.PerformClick();
+                        break;
+                    case 9:
+                        btnR2.PerformClick();
+                        break;
+                    case 10:
+                        btnR3.PerformClick();
+                        break;
+                    case 11:
+                        btnR4.PerformClick();
+                        break;
+                    case 12:
+                        btnR5.PerformClick();
+                        break;
+                }
+            }
+
             if (game.isGameOver())
             {
                 game.captureAll();
@@ -79,7 +105,7 @@ namespace AIProjectForm
             if (game.leftTurn == true)
             {
                 game.Move(1);
-                
+
                 UpdateBoard(ref game);
             }
         }
@@ -168,9 +194,11 @@ namespace AIProjectForm
 
     public class Mancala
     {
+        public const int max_depth = 5;
         public int[] board = { 4, 4, 4, 4, 4, 4, 0, 4, 4, 4, 4, 4, 4, 0 };
-        public bool leftTurn;
         public bool gameOver;
+        public bool leftTurn;
+        public bool aiActive = true;
 
         public Mancala()
         {
@@ -179,15 +207,16 @@ namespace AIProjectForm
             gameOver = false;
         }
 
-        public void Move(int start)
+        public bool Move(int start)
         {
             int index = start;
+            bool free_turn = false;
             int stones = board[index];
             board[index] = 0;
 
             if (gameOver)
             {
-                return;
+                return false;
             }
 
             for (int i = stones; i > 0; i--)
@@ -215,7 +244,7 @@ namespace AIProjectForm
                     if (isPlayerStore(index))
                     {
                         board[index]++;
-                        NextTurn();
+                        free_turn = true;
                     }
                     else if (isCapture(index))
                     {
@@ -231,7 +260,11 @@ namespace AIProjectForm
                     board[index]++;
                 }
             }
-            NextTurn();
+            if (stones != 0 && !free_turn)
+            {
+                NextTurn();
+            }
+            return free_turn;
         }
         bool isPlayerStore(int index)
         {
@@ -246,11 +279,11 @@ namespace AIProjectForm
         }
         bool isCapture(int index)
         {
-            if (leftTurn == true && index >= 0 && index <= 5 && board[index] == 0 && board[12-index] > 0)
+            if (leftTurn == true && index >= 0 && index <= 5 && board[index] == 0 && board[12 - index] > 0)
             {
                 return true;
             }
-            else if (leftTurn == false && index >= 7 && index <= 12 && board[index] == 0 && board[12-index] > 0)
+            else if (leftTurn == false && index >= 7 && index <= 12 && board[index] == 0 && board[12 - index] > 0)
             {
                 return true;
             }
@@ -308,6 +341,88 @@ namespace AIProjectForm
             }
             board[7] += leftSum;
             board[13] += rightSum;
+        }
+
+        public int heuristic()
+        {
+            int ai_marbles = 0;
+            int player_marbles = 0;
+            int ai_store, player_store;
+
+            for (int i = 0; i < 6; i++)
+            {
+                ai_marbles += board[i + 7];
+                player_marbles += board[i];
+            }
+            ai_store = board[13];
+            player_store = board[6];
+
+            return (ai_marbles - player_marbles) + (ai_store - player_store);
+        }
+        public int[] get_ai_move(int depth, bool max_turn)
+        {
+            const int infinity = 999999;
+            bool free_turn;
+            int[] val = { 0, 0 };
+            int[] best = { 0, 0 };
+
+            if (depth == 0 || isGameOver())
+            {
+                best[0] = heuristic();
+                return best;
+            }
+
+            if (max_turn && depth < max_depth)
+            {
+                best[0] = -1 * infinity;
+                int[] tmp = new int[14];
+                Array.Copy(board, tmp, 14);
+
+                for (int i = 7; i < 13; i++)
+                {
+                    if (board[i] > 0)
+                    {
+                        free_turn = Move(i);
+                        val = get_ai_move(depth - 1, free_turn);
+                        best[0] = Math.Max(best[0], val[0]);
+                        if (best[0] == val[0])
+                        {
+                            best[1] = i;
+                        }
+                        Array.Copy(tmp, board, 14);
+                    }
+                }
+
+                return best;
+            }
+            else if (depth < max_depth)
+            {
+                best[0] = infinity;
+                int[] tmp = new int[14];
+                Array.Copy(board, tmp, 14);
+
+                for (int i = 0; i < 6; i++)
+                {
+                    if (board[i] > 0)
+                    {
+                        free_turn = Move(i);
+                        val = get_ai_move(depth - 1, !free_turn);
+                        best[0] = Math.Min(best[0], val[0]);
+                        if (best[0] == val[0])
+                        {
+                            best[1] = i;
+                        }
+                        Array.Copy(tmp, board, 14);
+                    }
+                }
+                return best;
+            }
+            else
+            {
+                int[] return_val = get_ai_move(depth - 1, max_turn);
+                Move(return_val[1]);
+                return return_val;
+            }
         }
     }
 }
