@@ -1,11 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace AIProjectForm
@@ -306,7 +299,7 @@ namespace AIProjectForm
                 board[opposite] = 0;
             }
         }
-        public void NextTurn()
+        void NextTurn()
         {
             leftTurn = leftTurn ? false : true;
         }
@@ -343,7 +336,7 @@ namespace AIProjectForm
             board[13] += rightSum;
         }
 
-        public int heuristic()
+        int heuristic()
         {
             int ai_marbles = 0;
             int player_marbles = 0;
