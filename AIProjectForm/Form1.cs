@@ -187,7 +187,7 @@ namespace AIProjectForm
 
     public class Mancala
     {
-        public const int max_depth = 5;
+        public const int max_depth = 10;
         public int[] board = { 4, 4, 4, 4, 4, 4, 0, 4, 4, 4, 4, 4, 4, 0 };
         public bool gameOver;
         public bool leftTurn;
@@ -414,6 +414,7 @@ namespace AIProjectForm
             {
                 int[] return_val = get_ai_move(depth - 1, max_turn);
                 leftTurn = false;
+                gameOver = false;
                 return return_val;
             }
         }
