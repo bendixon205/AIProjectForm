@@ -332,7 +332,7 @@ namespace AIProjectForm
                 board[i] = 0;
                 board[i + 7] = 0;
             }
-            board[7] += leftSum;
+            board[6] += leftSum;
             board[13] += rightSum;
         }
 
